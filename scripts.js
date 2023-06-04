@@ -27,18 +27,25 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 
 document.querySelector('[data-list-items]').appendChild(starting)
 
+//Reusable function that generates the option element for both the genres and authors. 
+const createOptionsFragments = (data) => {
+    const fragment = document.createDocumentFragment();
+
+    for (const [id, name] of Object.entries(data)) {
+        const element = document.createElement('option')
+        element.value = id
+        element.innerText = name
+        genreHtml.appendChild(element)
+    }
+    
+}
+
 const genreHtml = document.createDocumentFragment()
 const firstGenreElement = document.createElement('option')
 firstGenreElement.value = 'any'
 firstGenreElement.innerText = 'All Genres'
 genreHtml.appendChild(firstGenreElement)
-
-for (const [id, name] of Object.entries(genres)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    genreHtml.appendChild(element)
-}
+genreHtml.appendChild(createOptionsFragments(genres))
 
 document.querySelector('[data-search-genres]').appendChild(genreHtml)
 
@@ -47,13 +54,7 @@ const firstAuthorElement = document.createElement('option')
 firstAuthorElement.value = 'any'
 firstAuthorElement.innerText = 'All Authors'
 authorsHtml.appendChild(firstAuthorElement)
-
-for (const [id, name] of Object.entries(authors)) {
-    const element = document.createElement('option')
-    element.value = id
-    element.innerText = name
-    authorsHtml.appendChild(element)
-}
+authorsHtml.appendChild(createOptionsFragments(authors))
 
 document.querySelector('[data-search-authors]').appendChild(authorsHtml)
 

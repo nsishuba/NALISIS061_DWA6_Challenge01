@@ -3,6 +3,7 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 let page = 1;
 let matches = books
 
+//Creates a list of preview elements and appends them to the document
 const createPreview = () => {
 
     const fragment = document.createDocumentFragment()
@@ -34,7 +35,13 @@ const createPreview = () => {
 
 document.querySelector('[data-list-items]').appendChild(createPreview()) //call function
 
-//Reusable function that generates the option element for both the genres and authors. 
+/**
+ * 
+ * This function generates a document fragment which holds the option element.
+ * The element will be populated with key-value pairs from data object.
+ * @param {Object} data Extracts genres or authors from data.js
+ * @returns Populated document fragment
+ */ 
 const createOptionsFragments = (data) => {
     const fragment = document.createDocumentFragment();
 
@@ -52,7 +59,7 @@ const firstGenreElement = document.createElement('option')
 firstGenreElement.value = 'any'
 firstGenreElement.innerText = 'All Genres'
 genreHtml.appendChild(firstGenreElement)
-genreHtml.appendChild(createOptionsFragments(genres))
+genreHtml.appendChild(createOptionsFragments(genres)) //call function
 
 document.querySelector('[data-search-genres]').appendChild(genreHtml)
 
@@ -61,7 +68,7 @@ const firstAuthorElement = document.createElement('option')
 firstAuthorElement.value = 'any'
 firstAuthorElement.innerText = 'All Authors'
 authorsHtml.appendChild(firstAuthorElement)
-authorsHtml.appendChild(createOptionsFragments(authors))
+authorsHtml.appendChild(createOptionsFragments(authors)) //call function
 
 document.querySelector('[data-search-authors]').appendChild(authorsHtml)
 
@@ -80,10 +87,10 @@ const setTheme = (theme) => {
 //sets initial theme based on settings of the users device.
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.querySelector('[data-settings-theme]').value = 'night'
-    setTheme('night')
+    setTheme('night') //call function 
 } else {
     document.querySelector('[data-settings-theme]').value = 'day'
-    setTheme('day')
+    setTheme('day') //call function
 }
 
 document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
